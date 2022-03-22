@@ -1,0 +1,100 @@
+6f06051fe9f8 arch: Don't enable THINLTO by default
+e9fff00011df Revert "mm: change max readahead size to 512KB"
+4fd97400caac alarmtimer: Minimize wakeup time
+96ca3ea7dee5 Makefile: Use pipes rather than temporary files for intermediate steps
+0cc1a632a61b binder: Stub out more debugging loggers
+5d8b717cbf7f pinctrl: msm: Really mask level interrupts to prevent latching
+297cf7ef02ac pinctrl: qcom: Don't lock around irq_set_irq_wake()
+fc40c2c48bae trace: gpio: Avoid warning when NOTRACE is defined globally
+3bc165b612cf binder: don't detect sender/target during buffer cleanup
+3bd15d356876 binder: change error code from postive to negative in binder_transaction
+f5e19f28f394 binder: one more kzalloc -> kmalloc
+2140bbb0d177 binder: avoid redundant zeroing of twcb and fixup
+d08b958ed419 binder: Stub out debug prints by default
+18e988c179cf binder: Fix compilation on v4.14
+7e3509c8f2e0 fs: Add __close_fd_get_file() for binder
+9b297f43cb57 drivers: Import binder from android12-5.10
+40454639a343 mm: Introduce kvcalloc()
+a9a26f9eea3c BACKPORT: FROMGIT: [PATCH] __inode_security_revalidate() never gets NULL opt_dentry
+62451e3c5dc0 BACKPORT: FROMGIT: [PATCH] fix breakage caused by d_find_alias() semantics change
+d51d1778a261 BACKPORT: FROMGIT: [PATCH] audit: normalize MAC_POLICY_LOAD record
+7d5d5abccb28 BACKPORT: FROMGIT: [PATCH] audit: normalize MAC_STATUS record
+7fb73182eae1 BACKPORT: FROMGIT: [PATCH] selinux: fix missing dput() before selinuxfs unmount
+efabffb29f22 BACKPORT: FROMGIT: [PATCH] security: Remove rtnl_lock() in  selinux_xfrm_notify_policyload()
+f37a7f72a206 BACKPORT: FROMGIT: [PATCH] security: Add a cred_getsecid hook
+b9d72a3a1b2d BACKPORT: FROMGIT: [PATCH] msg/security: Pass kern_ipc_perm not msg_queue into the  msg_queue security hooks
+51144d46f2f0 BACKPORT: FROMGIT: [PATCH] shm/security: Pass kern_ipc_perm not shmid_kernel into the  shm security hooks
+58dfba544e74 BACKPORT: FROMGIT: sem/security: Pass kern_ipc_perm not sem_array into the sem security hooks
+0698d075c044 BACKPORT: FROMGIT: [PATCH] selinux: fix handling of uninitialized selinux state in  get_bools/classes
+d37fdf6b431c BACKPORT: FROMGIT: [PATCH] selinux: constify write_op[]
+0d6184e82236 BACKPORT: FROMGIT: selinux: Squash cleanup printk loggings
+3014ce50f617 BACKPORT: FROMGIT: selinux: convert to kvmalloc
+455f934b665a rpmsg: glink: reset should_wakeup before calling system wakeup
+2c5f1dd10ac1 [TEMP] Revert "msm-camera: Unmap secure buffers in secure usecase"
+4a920bcd7a03 msm: ipa: use detach/attach netif instead of stop/wakeup
+c19fc7610b30 Revert "msm: ipa: Fix to avoid  NETDEV WATCHDOG warning logs"
+158d9f34efb5 cpufreq: stats: replace the global lock with atomic
+c60d1f24e10a mm/slub.c: branch optimization in free slowpath
+008dd4105f53 display: sde: do not pass around offset string
+bbd88c087a40 f2fs: reduce timeout for uncongestion
+ef72877a9e7c display: add some bp hints to hot paths
+c1a7748f013f drivers: power/irqchip: Add wakeup irq loggers
+b789c42547c7 idle: Prevent late-arriving interrupts from disrupting offline
+8bc997bd1030 sched/idle: Move quiet_vmstate() into the NOHZ code
+64837e40f5d3 sched: promote nodes out of CONFIG_SCHED_DEBUG
+b9a200ee34ab rcu: Squash backport from v5.4
+cb6ecb2f453c sched/fair/util_est: Implement faster ramp-up EWMA on utilization increases
+ab8a347839a8 sched/pelt: Skip updating util_est when utilization is higher than CPU's capacity
+379a8aa66d6b sched/util_est: Fix util_est_dequeue() for throttled cfs_rq
+e701a903cae9 sched,fair: Alternative sched_slice()
+378b756106fd block: Do not wake the request CPU if idle
+5b96fb96bae3 printk: use buffer from the stack space
+3c43db9654e0 uid_sys_stats: Remove dependency on the profiling subsystem
+ed68cb2e3786 profiling: Implement a simple task exit notifier when disabled
+0ecbde25586c mm/kmemleak: fix possible wrong memory scanning period
+193f294ff3b8 mm/kmemleak: rely on rcu for task stack scanning
+2b62cf5eb19e mm/kmemleak: turn kmemleak_lock and object->lock to raw_spinlock_t
+dc99c5ed3695 kmemleak: Do not corrupt the object_list during clean-up
+611cf207bea6 mm: kmemleak: use the memory pool for early allocations
+62f624dfe229 mm: kmemleak: simple memory allocation pool for kmemleak objects
+971a0a1f6700 mm: kmemleak: make the tool tolerant to struct scan_area allocation failures
+8d37747b6fe9 mm: kmemleak: disable early logging in case of error
+62a48648b5d9 kmemleak: account for tagged pointers when calculating pointer range
+3bcae72b6b1e mm, kmemleak: little optimization while scanning
+057b24e6ba41 mm/kmemleak.c: make kmemleak_boot_config() __init
+3707cc2b3de8 defconfig: More debloating
+f4392fc7d476 mm: kmemleak: Don't require global debug options or debugfs
+cf332376c0e7 netfilter: conntrack: free extension area immediately
+2269fa84f3ed Revert "kernel: time: Add delay after cpu_relax() in tight loops"
+2097a72f65cc serial: msm_geni_serial: Register normal suspend instead of suspend_noirq
+e982d24c8d36 msm: ipa: added likely/unlikely branch prediction to the lan dp
+106daff9757a dts: sdmmagpie: Don't include coresight configs
+8ea60f3827b0 msm_geni_serial: Remove IPC logging
+47cbaa8c6458 arm64: Kconfig: select HAVE_FUTEX_CMPXCHG
+520a49939873 msm: ipa3: Fix to use paired PM operation for IPA
+7ae25b6437e2 msm: ipa: Fix the force_coals command stuck issue on AP suspend
+9e8df390cb29 soc:qcom:dfc: change the default call bringup grant to 20k
+29c1c44a7574 msm: camera: Remove nonsensical register reads in cam_vfe_fe_reg_dump()
+a1782a2f643c input: gt9886: Fix memory leak on init
+0dd102ee174b msm-camera: Unmap secure buffers in secure usecase
+961647d876eb msm-camera: Set camera-smmu to non-fatal by default.
+ef55b3bf57ae msm-camera: Fixed NULL pointer violation in cam OIS driver
+1b29f63ed1ce msm: camera: Fix memory leak in cam_res_mgr_probe()
+710607b94c89 UPSTREAM: xfrm: Make function xfrmi_get_link_net() static
+8453532e4042 UPSTREAM: xfrm: fix gro_cells leak when remove virtual xfrm interfaces
+daf8be431745 UPSTREAM: xfrm: Fix inbound traffic via XFRM interfaces across network namespaces
+dc03eb6e328b UPSTREAM: xfrm interface: fix memory leak on creation
+75145256a508 UPSTREAM: xfrm: clone XFRMA_SET_MARK in xfrm_do_migrate
+884d0c627522 msm: camera: icp: fix -Wunsequenced
+f9c1148885bb msm_geni_serial: ensure proper ioctl_count range
+25074ce7f4ca msm_geni_serial: make ioctl always exclusive
+eef91913a998 msm_geni_serial: featurize console
+cb977d02159a Revert "cpufreq: schedutil: Fix for CR 2040904"
+0f090641b739 drm/msm: minimize qos remap updates
+c919d0e9376a cpuidle: lpm_levels: Don't print parent clocks during suspend
+0454963f4c2a irq: fix wakeup logging under new s2idle flow
+98d47f4c29e7 BACKPORT: msm: kgsl: Use DMA APIs for memory pool cache maintenance
+861789668784 defconfig: Enable MINIMAL_TRACING_FOR_IORAP
+12f265167732 arm64: Compile out perf_trace_user when !DEBUG_FS
+7fa2ea3776e5 trace: Introduce minimal tracing for iorapd
+414330ca2f5f defconfig: debloat more
