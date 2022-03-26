@@ -24,6 +24,8 @@ block=/dev/block/bootdevice/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
 
+no_block_display=1;
+
 ## AnyKernel methods (DO NOT CHANGE)
 # import patching functions/variables - see for reference
 . tools/ak3-core.sh;
@@ -37,4 +39,5 @@ set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 dump_boot;
 
 write_boot;
+
 ## end boot install

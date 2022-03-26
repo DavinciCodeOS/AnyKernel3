@@ -29,7 +29,7 @@ ui_printfile() {
   done < $1;
 }
 show_progress() { echo "progress $1 $2" >> $OUTFD; }
-file_getprop() { $BB grep "^$2=" "$1" | $BB cut -d= -f2-; }
+file_getprop() { $BB grep "^$2=" "$1" | $BB tail -n1 | $BB cut -d= -f2-; }
 find_slot() {
   local slot=$(getprop ro.boot.slot_suffix 2>/dev/null);
   [ "$slot" ] || slot=$($BB grep -o 'androidboot.slot_suffix=.*$' /proc/cmdline | $BB cut -d\  -f1 | $BB cut -d= -f2);
@@ -267,15 +267,13 @@ abort() {
 do_devicecheck() {
   [ "$(file_getprop anykernel.sh do.devicecheck)" == 1 ] || return 1;
   local device devicename match product testname vendordevice vendorproduct;
-  ui_print "Checking device...";
   device=$(getprop ro.product.device 2>/dev/null);
   product=$(getprop ro.build.product 2>/dev/null);
   vendordevice=$(getprop ro.product.vendor.device 2>/dev/null);
   vendorproduct=$(getprop ro.vendor.product.device 2>/dev/null);
-  for testname in $(file_getprop anykernel.sh 'device.name.*'); do
+  for testname in $($BB grep '^device.name.*=' anykernel.sh | $BB cut -d= -f2-); do
     for devicename in $device $product $vendordevice $vendorproduct; do
       if [ "$devicename" == "$testname" ]; then
-        ui_print "$testname" " ";
         match=1;
         break 2;
       fi;
@@ -461,8 +459,11 @@ fi;
 
 if [ -f banner ]; then
   ui_printfile banner;
-  ui_print " " " ";
 fi;
+
+ui_print "AnyKernel3 by osm0sis @ xda-developers";
+$BB grep -oE 'AK_BASE.*' META-INF/com/google/android/updater-script >&2;
+ui_print " " " ";
 
 KERNEL_STRING="$(file_getprop anykernel.sh kernel.string)";
 ui_print "$KERNEL_STRING";
@@ -471,9 +472,6 @@ if [ -f version ]; then
   ui_printfile version;
   ui_print " ";
 fi;
-ui_print " " "AnyKernel3 by osm0sis @ xda-developers" " ";
-$BB grep -oE 'AK_BASE.*' META-INF/com/google/android/updater-script >&2;
-ui_print " ";
 
 setup_env;
 
@@ -481,7 +479,15 @@ do_devicecheck;
 do_versioncheck;
 do_levelcheck;
 
-ui_print "Installing...";
+ui_print " ";
+ui_print "Ukraine is being INVADED by russia."
+ui_print "Ukraine is INDEPENDENT and FREE country."
+ui_print "Neo-Nazism is a FALSE claim used to indoctrinate people."
+ui_print "russian army is viciously KILLING innocent civilians."
+ui_print "Don't trust in RIGGED news spreaded by the east media."
+ui_print "Fuck putin."
+ui_print "Slava Ukraini!"
+
 CORE=$($BB grep -oE 'ak.*core.sh' anykernel.sh);
 [ -f tools/$CORE ] || $BB ln -s $AKHOME/tools/ak*-core.sh $AKHOME/tools/$CORE;
 PATH="$AKHOME/bin:$PATH" home=$AKHOME $BB ash anykernel.sh $2;
