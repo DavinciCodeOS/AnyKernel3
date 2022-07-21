@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=InfinityBattery by Adrian and Mary based on Vantomkernel
+kernel.string=VantomLillia by Adrian and Mary based on Vantomkernel
 do.devicecheck=1
 do.modules=0
 do.systemless=1
