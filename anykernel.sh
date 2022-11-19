@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=VantomLillia by Adrian and Steve based on Vantomkernel
+kernel.string=VantomSyndra by Team Kenvyra based on Vantomkernel
 do.devicecheck=1
 do.modules=0
 do.systemless=1
