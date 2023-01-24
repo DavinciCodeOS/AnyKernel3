@@ -42,11 +42,11 @@ case $? in
 esac
 
 ## AnyKernel install
-dump_boot;
+split_boot;
 
-# begin ramdisk changes
-
-# end ramdisk changes
+if [ -f $split_img/ramdisk.cpio ]; then
+  unpack_ramdisk;
+fi;
 
 write_boot;
 ## end install
