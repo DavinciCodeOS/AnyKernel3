@@ -1,10 +1,10 @@
-# AnyKernel3 Ramdisk Mod Script
-# osm0sis @ xda-developers
+### AnyKernel3 Ramdisk Mod Script
+## osm0sis @ xda-developers
 
-## AnyKernel setup
+### AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=VantomSyndra by Team Kenvyra based on Vantomkernel
+kernel.string=VantomSyndra by Adrian based on Vantomkernel
 do.devicecheck=1
 do.modules=0
 do.systemless=1
@@ -16,37 +16,74 @@ supported.versions=11 - 13
 supported.patchlevels=
 '; } # end properties
 
-# shell variables
+### AnyKernel install
+# begin attributes
+attributes() {
+set_perm_recursive 0 0 755 644 $ramdisk/*;
+set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
+} # end attributes
+
+
+## boot shell variables
 block=/dev/block/bootdevice/by-name/boot;
 is_slot_device=0;
 ramdisk_compression=auto;
+patch_vbmeta_flag=auto;
+
+# import functions/variables and setup patching - see for reference (DO NOT REMOVE)
+. tools/ak3-core.sh && attributes;
+
+# boot install
+dump_boot; # use split_boot to skip ramdisk unpack, e.g. for devices with init_boot ramdisk
+
+write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_boot ramdisk
+## end boot install
 
 
-## AnyKernel methods (DO NOT CHANGE)
-# import patching functions/variables - see for reference
-. tools/ak3-core.sh;
+## init_boot shell variables
+#block=init_boot;
+#is_slot_device=1;
+#ramdisk_compression=auto;
+#patch_vbmeta_flag=auto;
 
-ui_print " " "Checking FileSystem type for /system..."
-# FS_Check
-slot=$(getprop ro.boot.slot_suffix)
-dd if=/dev/block/by-name/system$slot bs=8 skip=135 count=1 | xxd | grep -q 53ef
-case $? in
-    0)
-        ui_print " " "EXT4 system partition detected! Using EXT4 patched dtb..."
-        cp $home/dtbs/dtb.img $home/dtb.img
-        ;;
-    1)
-        ui_print " " "EROFS system partition detected! Using EROFS patched dtb..."
-        cp $home/dtbs/dtb_erofs.img $home/dtb.img
-        ;;
-esac
+# reset for init_boot patching
+#reset_ak;
 
-## AnyKernel install
-split_boot;
+# init_boot install
+#dump_boot; # unpack ramdisk since it is the new first stage init ramdisk where overlay.d must go
 
-if [ -f $split_img/ramdisk.cpio ]; then
-  unpack_ramdisk;
-fi;
+#write_boot;
+## end init_boot install
 
-write_boot;
-## end install
+
+## vendor_kernel_boot shell variables
+#block=vendor_kernel_boot;
+#is_slot_device=1;
+#ramdisk_compression=auto;
+#patch_vbmeta_flag=auto;
+
+# reset for vendor_kernel_boot patching
+#reset_ak;
+
+# vendor_kernel_boot install
+#split_boot; # skip unpack/repack ramdisk, e.g. for dtb on devices with hdr v4 and vendor_kernel_boot
+
+#flash_boot;
+## end vendor_kernel_boot install
+
+
+## vendor_boot shell variables
+#block=vendor_boot;
+#is_slot_device=1;
+#ramdisk_compression=auto;
+#patch_vbmeta_flag=auto;
+
+# reset for vendor_boot patching
+#reset_ak;
+
+# vendor_boot install
+#dump_boot; # use split_boot to skip ramdisk unpack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
+
+#write_boot; # use flash_boot to skip ramdisk repack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
+## end vendor_boot install
+
